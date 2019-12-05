@@ -1,0 +1,97 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "extensions_customScriptArtifact_183362431_commandToExecute": {
+            "type": "SecureString"
+        },
+        "virtualMachines_azsu_d_ops_01_name": {
+            "defaultValue": "azsu-d-ops-01",
+            "type": "String"
+        },
+        "disks_azsu_d_ops_01_externalid": {
+            "defaultValue": "/subscriptions/d63ecd1a-7af5-40c7-97bd-a44b6650e238/resourceGroups/GeeksDevTestLab-azsu-d-ops-01-848644/providers/Microsoft.Compute/disks/azsu-d-ops-01",
+            "type": "String"
+        },
+        "networkInterfaces_azsu_d_ops_01_externalid": {
+            "defaultValue": "/subscriptions/d63ecd1a-7af5-40c7-97bd-a44b6650e238/resourceGroups/geeksdevtestlab-azsu-d-ops-01-848644/providers/Microsoft.Network/networkInterfaces/azsu-d-ops-01",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Compute/virtualMachines",
+            "apiVersion": "2019-03-01",
+            "name": "[parameters('virtualMachines_azsu_d_ops_01_name')]",
+            "location": "northeurope",
+            "tags": {
+                "hidden-DevTestLabs-LabUId": "c809da31-4b5d-48ba-b28d-24dc5c19a95b",
+                "hidden-DevTestLabs-LogicalResourceUId": "839b5dc5-b6bd-48fb-8cb2-bc03299a3f41"
+            },
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "Standard_D3_v2"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "microsoftvisualstudio",
+                        "offer": "visualstudio2019latest",
+                        "sku": "vs-2019-ent-latest-ws2019",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "osType": "Windows",
+                        "name": "[parameters('virtualMachines_azsu_d_ops_01_name')]",
+                        "createOption": "FromImage",
+                        "caching": "ReadWrite",
+                        "managedDisk": {
+                            "id": "[parameters('disks_azsu_d_ops_01_externalid')]"
+                        }
+                    },
+                    "dataDisks": []
+                },
+                "osProfile": {
+                    "computerName": "[parameters('virtualMachines_azsu_d_ops_01_name')]",
+                    "adminUsername": "tarunarora",
+                    "windowsConfiguration": {
+                        "provisionVMAgent": true,
+                        "enableAutomaticUpdates": true
+                    },
+                    "secrets": [],
+                    "allowExtensionOperations": true
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[parameters('networkInterfaces_azsu_d_ops_01_externalid')]"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachines/extensions",
+            "apiVersion": "2019-03-01",
+            "name": "[concat(parameters('virtualMachines_azsu_d_ops_01_name'), '/customScriptArtifact-183362431')]",
+            "location": "northeurope",
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachines', parameters('virtualMachines_azsu_d_ops_01_name'))]"
+            ],
+            "properties": {
+                "autoUpgradeMinorVersion": true,
+                "publisher": "Microsoft.Compute",
+                "type": "CustomScriptExtension",
+                "typeHandlerVersion": "1.9",
+                "settings": {
+                    "fileUris": [
+                        "https://msdtlvm2112802486.blob.core.windows.net/artifacts/PublicRepo/master/0d52f6f79c7481de8a2afed387c7f177f7faeba5/Artifacts/windows-vsts-build-agent/scripts/Artifactfile.json?sv=2015-12-11&sr=c&sig=NTIeCavdDDXus3y5Qc0l9p0qgdK5wBDA%2BRcoVREAmR8%3D&st=2019-12-05T08%3A38%3A01Z&se=2019-12-06T08%3A53%3A01Z&sp=r",
+                        "https://msdtlvm2112802486.blob.core.windows.net/artifacts/PublicRepo/master/0d52f6f79c7481de8a2afed387c7f177f7faeba5/Artifacts/windows-vsts-build-agent/scripts/vsts-agent-install.ps1?sv=2015-12-11&sr=c&sig=NTIeCavdDDXus3y5Qc0l9p0qgdK5wBDA%2BRcoVREAmR8%3D&st=2019-12-05T08%3A38%3A01Z&se=2019-12-06T08%3A53%3A01Z&sp=r"
+                    ],
+                    "commandToExecute": "[parameters('extensions_customScriptArtifact_183362431_commandToExecute')]"
+                },
+                "protectedSettings": {}
+            }
+        }
+    ]
+}
