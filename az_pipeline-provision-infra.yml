@@ -26,5 +26,5 @@ steps:
     location: 'UK South'
     templateLocation: 'Linked artifact'
     csmFile: 'infra/infra-webapp.json'
-    overrideParameters: '-app-server-name $(appservicename) --app-service-name $(appservername)'
+    overrideParameters: '-app-server-name $(appservicename) -app-service-name $(appservername)'
     deploymentMode: 'Incremental'
