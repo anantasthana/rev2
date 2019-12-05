@@ -8,9 +8,9 @@ trigger:
 
 variables:
 - name: appservername
-  value: 'azsu-appserver-devtest-01'
+  value: azsu-appserver-devtest-01
 - name: appservicename
-  value: 'mywebapp-devtest-01'
+  value: mywebapp-devtest-01
 
 pool:
   vmImage: 'ubuntu-latest'
