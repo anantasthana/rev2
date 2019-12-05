@@ -25,6 +25,6 @@ steps:
     resourceGroupName: 'azsu-rg-devtest-mywebapp-01'
     location: 'UK South'
     templateLocation: 'Linked artifact'
-    csmFile: 'infra/infra-webapp.json'
+    csmFile: 'code/infra/infra-webapp.json'
     overrideParameters: '-app-server-name $(appservicename) --app-service-name $(appservername)'
     deploymentMode: 'Incremental'
