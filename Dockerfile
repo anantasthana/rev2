@@ -1,7 +1,7 @@
 FROM mcr.microsoft.com/dotnet/core/runtime:2.2 AS build
 
-RUN ls
 COPY /myweb/ app/
+RUN ls
 RUN dotnet restore
 RUN dotnet build -c Release --no-restore
 
