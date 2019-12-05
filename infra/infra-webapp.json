@@ -41,13 +41,13 @@
             "location": "[resourceGroup().location]",
             "tags": {
                 "[concat('hidden-related:', resourceGroup().id, '/providers/Microsoft.Web/serverfarms/', parameters('app-server-name'))]": "Resource",
-                "displayName": "mywebApp"
+                "displayName": "[parameters('app-server-name')]"
             },
             "dependsOn": [
                 "[resourceId('Microsoft.Web/serverfarms', parameters('app-server-name'))]"
             ],
             "properties": {
-                "name": "mywebApp",
+                "name": "[parameters('app-server-name')]",
                 "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('app-server-name'))]"
             }
         }
