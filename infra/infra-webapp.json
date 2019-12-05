@@ -56,20 +56,4 @@
     },
     "functions": [
     ]
-}, {
-    "name": "mywebApp",
-    "type": "Microsoft.Web/sites",
-    "apiVersion": "2016-08-01",
-    "location": "[resourceGroup().location]",
-    "tags": {
-        "[concat('hidden-related:', resourceGroup().id, '/providers/Microsoft.Web/serverfarms/appServicePlan1')]": "Resource",
-        "displayName": "mywebApp"
-    },
-    "dependsOn": [
-        "[resourceId('Microsoft.Web/serverfarms', 'appServicePlan1')]"
-    ],
-    "properties": {
-        "name": "mywebApp",
-        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', 'appServicePlan1')]"
-    }
 }
