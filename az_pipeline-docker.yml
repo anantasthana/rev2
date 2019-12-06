@@ -37,3 +37,17 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
+
+- stage: Deploy
+  displayName: Deploy 
+  jobs:
+  - job: Deploy
+    displayName: Deploy
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: AzureWebAppContainer@1
+      inputs:
+        azureSubscription: 'Microsoft Azure Sponsorship (47187c83-09b8-4dde-b47d-c1f82ba04389)'
+        appName: 'mywebapp-docker'
+        containers: '$(dockerRegistryServiceConnection)/$(imageRepository):$(tag)'
